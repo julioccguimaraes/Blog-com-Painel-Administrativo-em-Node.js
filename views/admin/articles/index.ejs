@@ -1,0 +1,45 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+<body>
+    <div class="container">
+        <hr>
+        <h2>Artigos</h2>
+        <a href="/admin/articles/new" class="btn btn-success">Novo Artigo</a>
+        <hr>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Slug</th>
+                    <th>Categoria</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% articles.forEach((article) => { %>
+                <tr>
+                    <td><%= article.id %></td>
+                    <td><%= article.title %></td>
+                    <td><%= article.slug %></td>
+                    <td><%= article.category.title %></td>
+                    <td>
+                        <a href="/admin/articles/edit/<%= article.id %>" class="btn btn-warning">Editar</a>
+                        <a href="#void" onclick="remove('<%= article.id %>');" class="btn btn-danger">Deletar</a>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    function remove(id) {
+        if (confirm("Confirma a deleção?")) {
+            window.location.href = "/admin/articles/delete/" + id
+        } else {
+            return false
+        }
+    }
+</script>
+<%- include('../../partials/footer.ejs') %>
